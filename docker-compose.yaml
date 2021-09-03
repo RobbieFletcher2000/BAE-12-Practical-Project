@@ -1,7 +1,7 @@
 version: "3.8"
 services:
         nginx:
-                image: nginx:latest
+                image: robbiefletcher2000/nginx:latest
                 ports:
                         - target: 80
                           published: 80
@@ -13,7 +13,7 @@ services:
                           target: /etc/nginx/nginx.conf
 
         flask-app:
-                image: flask-image:latest
+                image: robbiefletcher2000/flask-image:latest
                 build: ./frontend
                 ports:
                         - target: 5000
@@ -21,7 +21,7 @@ services:
                           protocol: tcp
 
         backend:
-                image: flaskback-image:latest
+                image: robbiefletcher2000/flaskback-image:latest
                 build: ./backend
                 ports:
                         - target: 5001
