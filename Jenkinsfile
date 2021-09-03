@@ -3,8 +3,8 @@ pipeline {
     environment {
         USER_NAME = credentials('USER')
         PASSWORD = credentials('PASSWORD')
-        DATABASE_URI = credentials('DB_URI')
-        SECRET_KEY = credentials('S_KEY')
+        DB_URI = credentials('DB_URI')
+        S_KEY = credentials('S_KEY')
 
     }
     stages{
@@ -17,12 +17,11 @@ pipeline {
         }
         stage('test'){
             steps{
-                sh 'echo"This is the testing stage"'
-                sh 'pip3 install -r  /backend/requirements.txt'
+                sh 'pip3 install -r ./backend/requirements.txt'
                 sh 'cd backend && python3 -m pytest'
 
 
-                sh 'pip3 install -r  /frontend/requirements.txt'
+                sh 'pip3 install -r ./frontend/requirements.txt'
                 sh 'cd frontend && python3 -m pytest'
 
             }
@@ -30,7 +29,7 @@ pipeline {
         stage('push'){
             steps{
                 sh 'echo "This is the push stage"'
-                sh 'docker login -u ${USER} -p ${PASSWORD} && docker-compose push'
+                sh 'docker login -u ${USER_NAME} -p ${PASSWORD} && docker-compose push'
             }    
         }
         stage('deploy'){
